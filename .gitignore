@@ -1,0 +1,54 @@
+# Local configuration
+.claude/settings.local.json
+.claude/state/
+
+# Session artifacts (optional - uncomment if using)
+# checkpoints/
+# conversation-history/
+# sessions/notes/
+
+# Environment
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+.python-version
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large data files (adjust based on your needs)
+data/local/
+data/raw/
+downloads/
+*.xlsx
+*.pdf
+*.h5
+*.hdf5
+
+# Reports (optional - some agents track these)
+# reports/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Temporary files
+*.tmp
+*.log
+temp/
+tmp/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/

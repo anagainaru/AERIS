@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "example-server": {
+      "command": "python",
+      "args": ["-m", "example_mcp_server"],
+      "env": {
+        "EXAMPLE_API_KEY": "${EXAMPLE_API_KEY}",
+        "EXAMPLE_CONFIG": "production"
+      },
+      "disabled": true,
+      "description": "Example MCP server integration - customize or remove"
+    }
+  },
+  "__comment__": "Configure MCP (Model Context Protocol) servers here. Each server provides tools the agent can use. Remove the 'disabled: true' line to enable a server."
+}

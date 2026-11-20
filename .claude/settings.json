@@ -1,0 +1,93 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/numeric-protocol-injection.sh",
+            "description": "Injects numeric value reporting protocol (citations, units, validation)"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/immutability-guard.sh",
+            "description": "Prevents accidental writes to read-only directories"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/cite-presence-guard.py",
+            "description": "Warns when wiki pages saved without citations (non-blocking)"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/wiki-change-detector.sh",
+            "description": "Detects wiki changes and reminds to update hot.md"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/verify-numeric-provenance.sh",
+            "description": "Verifies numeric values have citations when wiki/sources/ changes"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/load-memory.sh",
+            "description": "Loads memory files at session start"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": ".claude/hooks/write-session-note.sh",
+            "description": "Generates session note on exit"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Read",
+      "Bash:ls",
+      "Bash:find",
+      "Bash:grep",
+      "Bash:cat",
+      "Bash:git"
+    ]
+  },
+  "model": "claude-sonnet-4-5",
+  "__comment__": "To disable a hook: remove it from the hooks array or comment out the entire hook entry"
+}
