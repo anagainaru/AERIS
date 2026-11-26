@@ -1,102 +1,75 @@
-# [AGENT_NAME]
+# Scripts
 
-<!-- Documentation for humans to be filled by the domain scientist -->
+Automation utilities for maintaining the agent's knowledge base and data pipeline.
 
-## Overview
+---
 
-[Brief 2-3 sentence description of what this agent does and who it's for]
+## Available Scripts
 
-## Domain
+### `build_index.py`
+**Purpose:** Rebuild `wiki/index.md` from wiki pages  
+**Usage:** `python scripts/build_index.py`  
+**When to run:** After adding/removing wiki pages
 
-This agent specializes in [domain area], supporting research in:
+### `validate_structure.py`
+**Purpose:** Check that required files and directories exist  
+**Usage:** `python scripts/validate_structure.py`  
+**When to run:** After initial setup, or when troubleshooting
 
-- [Research area 1]
-- [Research area 2]
-- [Research area 3]
+---
 
-## Quick Start
+## Adding New Scripts
 
-### Prerequisites
+1. Create script in `scripts/`
+2. Add shebang: `#!/usr/bin/env python3`
+3. Make executable: `chmod +x scripts/yourscript.py`
+4. Document usage in this README
+5. Add to relevant workflow in `CLAUDE.md`
 
-- Python [version]
-- [Other dependencies]
-- Access to [required data/systems]
+---
 
-### Installation
+## Script Conventions
+
+- **Language:** Python 3.11+ (use stdlib when possible)
+- **Style:** Follow project conventions (see .claude/rules/ if applicable)
+- **Error handling:** Fail loudly with clear error messages
+- **Output:** Print progress to stdout, errors to stderr
+- **Idempotent:** Safe to run multiple times
+
+---
+
+## Common Script Patterns
+
+### Pipeline Scripts
+```python
+# Read source → Process → Write output
+# Always validate input before processing
+# Always write to temp file, then rename (atomic)
+```
+
+### Validation Scripts
+```python
+# Check conditions → Report findings
+# Exit 0 if valid, exit 1 if invalid
+# Print specific failures, not just "validation failed"
+```
+
+### Build Scripts
+```python
+# Scan input → Generate output
+# Skip unchanged files (efficiency)
+# Write metadata (date generated, source files)
+```
+
+---
+
+## Dependencies
+
+If scripts need external packages, document them here:
 
 ```bash
-# Clone or navigate to this agent directory
-cd [agent-name]
-
 # Install dependencies
-[installation commands]
-
-# Set up configuration (if needed)
-[configuration steps]
+pip install -r requirements.txt
 ```
 
-### Running the Agent
-
-```bash
-# Launch Claude Code in this directory
-claude
-```
-
-## Project Structure
-
-```
-[agent-name]/
-├── wiki/           # Knowledge base - the agent reads this first
-├── data/           # Input datasets and ground truth
-├── reports/        # Generated analysis outputs
-├── scripts/        # Automation utilities
-└── .claude/        # Agent configuration and skills
-```
-
-## Key Capabilities
-
-- **[Capability 1]**: [Description]
-- **[Capability 2]**: [Description]
-- **[Capability 3]**: [Description]
-
-## Usage Examples
-
-### Example 1: [Common Task]
-
-```
-[Description of task]
-[Example prompt or command]
-```
-
-### Example 2: [Common Task]
-
-```
-[Description of task]
-[Example prompt or command]
-```
-
-## Knowledge Base
-
-The `wiki/` directory contains compiled domain knowledge organized by:
-
-- `[section-1]/` — [what's in this section]
-- `[section-2]/` — [what's in this section]
-- `[section-3]/` — [what's in this section]
-
-Start with `wiki/index.md` for a complete catalog.
-
-## Contributing
-
-[Guidelines for adding new sources, updating knowledge, etc.]
-
-## Citation
-
-[How to cite this agent or its outputs]
-
-## License
-
-[License information]
-
-## Contact
-
-[Maintainer information]
+Create `requirements.txt` if needed.
